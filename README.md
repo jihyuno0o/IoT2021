@@ -206,3 +206,4 @@ int func3(Circle& c1)
 
 get, set 선언 바로바로 하기 
 
+
