@@ -207,3 +207,10 @@ int func3(Circle& c1)
 get, set 선언 바로바로 하기 
 
 
+### 2021-03-15
+
+MFC(Microsoft Foundation Class)
+
+SDK(Software Development Kit) ; library 개념
+
+
