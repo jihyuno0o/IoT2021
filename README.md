@@ -213,4 +213,23 @@ MFC(Microsoft Foundation Class)
 
 SDK(Software Development Kit) ; library 개념
 
+```void CTestDLG::OnBnClickedButton1()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	//CEdit 
+	CString buf;
+	//GetDlgItem(IDC_EDIT5)->GetWindowTextW(buf);
+	cEditInput.GetWindowTextW(buf);
+	//GetDlgItem(IDC_EDIT6)->SetWindowTextW(buf.MakeUpper());
+	cEditUpper.SetWindowTextW(buf.MakeUpper());
+	int n = buf.GetLength();
+	CString s;
+	s.Format(L"%d", n);
+	//GetDlgItem(IDC_EDIT7)->SetWindowTextW(s);
+	cEditLen.SetWindowTextW(s);
+
+}
+```
+포인터와 로컬변수 둘다 같은데 흠,, 글쿤,,
+
 
