@@ -18,7 +18,18 @@ namespace WindowsFormsEdit
         {
             InitializeComponent();
         }
+        //int Count(char deli, string str)
+        //{
+        //    string[] Strs = str.Split(deli);
+        //    int n = Strs.Length;
+        //    return n;
+        //}
+        //string GetToken(int index, char deli, string str)
+        //{
+        //    string[] arr = str.Split(deli);
 
+        //    return arr[index];
+        //}
         private void mnuFileOpen_Click(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog1.ShowDialog(); //C++ DoModal();
@@ -113,18 +124,52 @@ namespace WindowsFormsEdit
             tbMemo.Clear();
         }
 
-        //int Count(char deli, string str)
-        //{
-        //    string[] Strs = str.Split(deli);
-        //    int n = Strs.Length;
-        //    return n;
-        //}
-        //string GetToken(int index, char deli, string str)
-        //{
-        //    string[] arr = str.Split(deli);
+        string strSearch;
+        public int lastPos=-1;
 
-        //    return arr[index];
-        //}
+        private void SearchnScroll(string str)
+        {
+            lastPos = tbMemo.Text.IndexOf(str, lastPos+1);
+            if (lastPos < 0)
+            {
+                MessageBox.Show("더 이상 없음");
+                return; 
+            }
+            tbMemo.SelectionStart = lastPos;
+            tbMemo.SelectionLength = str.Length;
+            tbMemo.ScrollToCaret();
+
+        }
+
+        private void mnuEditSearch_Click(object sender, EventArgs e)
+        {
+            FormSearch dlg = new FormSearch();
+            DialogResult result = dlg.ShowDialog();
+            if(result == DialogResult.OK)
+            {
+                strSearch = dlg.sSearch;
+
+                SearchnScroll(strSearch);
+            }
+           
+        }
+
+        private void mnuEditSearchnext_Click(object sender, EventArgs e)
+        {
+            SearchnScroll(strSearch);
+        }
+
+     
+        private void btnEditReplace_Click(object sender, EventArgs e)
+        {
+            FormReplace dlg = new FormReplace();
+            DialogResult result = dlg.ShowDialog();
+            if (result == DialogResult.Cancel) return;
+            
+            tbMemo.Text = tbMemo.Text.Replace(dlg.before, dlg.after);
+            tbMemo.ScrollToCaret();
+
+        }
 
     }
 }

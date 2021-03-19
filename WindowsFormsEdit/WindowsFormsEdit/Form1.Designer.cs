@@ -36,8 +36,12 @@ namespace WindowsFormsEdit
             this.mnuFileOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileSave = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuEditSearch = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuEditSearchnext = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuView = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuViewFont = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuViewForecolor = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuViewBackcolor = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -45,11 +49,10 @@ namespace WindowsFormsEdit
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.sbLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.sbLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.mnuViewForecolor = new System.Windows.Forms.ToolStripMenuItem();
             this.sbLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.mnuViewBackcolor = new System.Windows.Forms.ToolStripMenuItem();
             this.sbLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.btnEditReplace = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMain.SuspendLayout();
             this.statusBar.SuspendLayout();
             this.SuspendLayout();
@@ -93,7 +96,7 @@ namespace WindowsFormsEdit
             // mnuFileNew
             // 
             this.mnuFileNew.Name = "mnuFileNew";
-            this.mnuFileNew.Size = new System.Drawing.Size(180, 22);
+            this.mnuFileNew.Size = new System.Drawing.Size(103, 22);
             this.mnuFileNew.Text = "New";
             this.mnuFileNew.Click += new System.EventHandler(this.mnuFileNew_Click);
             // 
@@ -113,9 +116,30 @@ namespace WindowsFormsEdit
             // 
             // mnuEdit
             // 
+            this.mnuEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuEditSearch,
+            this.mnuEditSearchnext,
+            this.btnEditReplace});
             this.mnuEdit.Name = "mnuEdit";
             this.mnuEdit.Size = new System.Drawing.Size(39, 20);
             this.mnuEdit.Text = "Edit";
+            // 
+            // mnuEditSearch
+            // 
+            this.mnuEditSearch.Name = "mnuEditSearch";
+            this.mnuEditSearch.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.mnuEditSearch.Size = new System.Drawing.Size(180, 22);
+            this.mnuEditSearch.Text = "Search";
+            this.mnuEditSearch.ToolTipText = "현재의 문서에서 특정한 문자열을 찾습니다.";
+            this.mnuEditSearch.Click += new System.EventHandler(this.mnuEditSearch_Click);
+            // 
+            // mnuEditSearchnext
+            // 
+            this.mnuEditSearchnext.Name = "mnuEditSearchnext";
+            this.mnuEditSearchnext.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.mnuEditSearchnext.Size = new System.Drawing.Size(180, 22);
+            this.mnuEditSearchnext.Text = "Search Next";
+            this.mnuEditSearchnext.Click += new System.EventHandler(this.mnuEditSearchnext_Click);
             // 
             // mnuView
             // 
@@ -130,9 +154,23 @@ namespace WindowsFormsEdit
             // mnuViewFont
             // 
             this.mnuViewFont.Name = "mnuViewFont";
-            this.mnuViewFont.Size = new System.Drawing.Size(180, 22);
+            this.mnuViewFont.Size = new System.Drawing.Size(132, 22);
             this.mnuViewFont.Text = "Font";
             this.mnuViewFont.Click += new System.EventHandler(this.mnuViewFont_Click);
+            // 
+            // mnuViewForecolor
+            // 
+            this.mnuViewForecolor.Name = "mnuViewForecolor";
+            this.mnuViewForecolor.Size = new System.Drawing.Size(132, 22);
+            this.mnuViewForecolor.Text = "Fore Color";
+            this.mnuViewForecolor.Click += new System.EventHandler(this.mnuViewForecolor_Click);
+            // 
+            // mnuViewBackcolor
+            // 
+            this.mnuViewBackcolor.Name = "mnuViewBackcolor";
+            this.mnuViewBackcolor.Size = new System.Drawing.Size(132, 22);
+            this.mnuViewBackcolor.Text = "Back Color";
+            this.mnuViewBackcolor.Click += new System.EventHandler(this.mnuViewBackcolor_Click);
             // 
             // mnuHelp
             // 
@@ -169,31 +207,24 @@ namespace WindowsFormsEdit
             this.sbLabel2.Size = new System.Drawing.Size(53, 17);
             this.sbLabel2.Text = "FontSize";
             // 
-            // mnuViewForecolor
-            // 
-            this.mnuViewForecolor.Name = "mnuViewForecolor";
-            this.mnuViewForecolor.Size = new System.Drawing.Size(180, 22);
-            this.mnuViewForecolor.Text = "Fore Color";
-            this.mnuViewForecolor.Click += new System.EventHandler(this.mnuViewForecolor_Click);
-            // 
             // sbLabel3
             // 
             this.sbLabel3.Name = "sbLabel3";
             this.sbLabel3.Size = new System.Drawing.Size(59, 17);
             this.sbLabel3.Text = "ForeColor";
             // 
-            // mnuViewBackcolor
-            // 
-            this.mnuViewBackcolor.Name = "mnuViewBackcolor";
-            this.mnuViewBackcolor.Size = new System.Drawing.Size(180, 22);
-            this.mnuViewBackcolor.Text = "Back Color";
-            this.mnuViewBackcolor.Click += new System.EventHandler(this.mnuViewBackcolor_Click);
-            // 
             // sbLabel4
             // 
             this.sbLabel4.Name = "sbLabel4";
             this.sbLabel4.Size = new System.Drawing.Size(61, 17);
             this.sbLabel4.Text = "BackColor";
+            // 
+            // btnEditReplace
+            // 
+            this.btnEditReplace.Name = "btnEditReplace";
+            this.btnEditReplace.Size = new System.Drawing.Size(180, 22);
+            this.btnEditReplace.Text = "Search_Replace";
+            this.btnEditReplace.Click += new System.EventHandler(this.btnEditReplace_Click);
             // 
             // formMemo
             // 
@@ -238,6 +269,9 @@ namespace WindowsFormsEdit
         private System.Windows.Forms.ToolStripStatusLabel sbLabel3;
         private System.Windows.Forms.ToolStripMenuItem mnuViewBackcolor;
         private System.Windows.Forms.ToolStripStatusLabel sbLabel4;
+        private System.Windows.Forms.ToolStripMenuItem mnuEditSearch;
+        private System.Windows.Forms.ToolStripMenuItem mnuEditSearchnext;
+        private System.Windows.Forms.ToolStripMenuItem btnEditReplace;
     }
 }
 

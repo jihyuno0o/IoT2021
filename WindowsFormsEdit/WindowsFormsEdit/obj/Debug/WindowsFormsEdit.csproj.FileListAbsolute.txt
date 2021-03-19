@@ -8,3 +8,5 @@ C:\Users\KOSTA\source\repos\WindowsFormsEdit\WindowsFormsEdit\obj\Debug\WindowsF
 C:\Users\KOSTA\source\repos\WindowsFormsEdit\WindowsFormsEdit\obj\Debug\WindowsFormsEdit.exe
 C:\Users\KOSTA\source\repos\WindowsFormsEdit\WindowsFormsEdit\obj\Debug\WindowsFormsEdit.pdb
 C:\Users\KOSTA\source\repos\WindowsFormsEdit\WindowsFormsEdit\obj\Debug\WindowsFormsEdit.formMemo.resources
+C:\Users\KOSTA\source\repos\WindowsFormsEdit\WindowsFormsEdit\obj\Debug\WindowsFormsEdit.FormSearch.resources
+C:\Users\KOSTA\source\repos\WindowsFormsEdit\WindowsFormsEdit\obj\Debug\WindowsFormsEdit.FormReplace.resources
