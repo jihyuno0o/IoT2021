@@ -1,0 +1,11 @@
+C:\Users\KOSTA\source\repos\WindowsFormsGraph\WindowsFormsGraph\bin\Debug\WindowsFormsGraph.exe.config
+C:\Users\KOSTA\source\repos\WindowsFormsGraph\WindowsFormsGraph\bin\Debug\WindowsFormsGraph.exe
+C:\Users\KOSTA\source\repos\WindowsFormsGraph\WindowsFormsGraph\bin\Debug\WindowsFormsGraph.pdb
+C:\Users\KOSTA\source\repos\WindowsFormsGraph\WindowsFormsGraph\obj\Debug\WindowsFormsGraph.csprojAssemblyReference.cache
+C:\Users\KOSTA\source\repos\WindowsFormsGraph\WindowsFormsGraph\obj\Debug\WindowsFormsGraph.Form1.resources
+C:\Users\KOSTA\source\repos\WindowsFormsGraph\WindowsFormsGraph\obj\Debug\WindowsFormsGraph.Properties.Resources.resources
+C:\Users\KOSTA\source\repos\WindowsFormsGraph\WindowsFormsGraph\obj\Debug\WindowsFormsGraph.csproj.GenerateResource.cache
+C:\Users\KOSTA\source\repos\WindowsFormsGraph\WindowsFormsGraph\obj\Debug\WindowsFormsGraph.csproj.CoreCompileInputs.cache
+C:\Users\KOSTA\source\repos\WindowsFormsGraph\WindowsFormsGraph\obj\Debug\WindowsFormsGraph.exe
+C:\Users\KOSTA\source\repos\WindowsFormsGraph\WindowsFormsGraph\obj\Debug\WindowsFormsGraph.pdb
+C:\Users\KOSTA\source\repos\WindowsFormsGraph\WindowsFormsGraph\obj\Debug\WindowsFormsGraph.DrawOption.resources
