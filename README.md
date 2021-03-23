@@ -316,6 +316,11 @@ C#으로 DB다루기
             {
                 MessageBox.Show(e1.Message);
             }
+	    catch (InvalidOperationException e2)
+            {
+                MessageBox.Show(e2.Message);
+
+            }
             return 0;
                         
         }
