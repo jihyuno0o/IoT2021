@@ -271,3 +271,66 @@ C#으로 DB다루기
 
 파일명: DBManager ;; 폼의 텍스트박스에 sql문 작성하면 DB에 적용됨
 
+```
+        SqlConnection sqlCon = new SqlConnection();
+        SqlCommand sqlCmd = new SqlCommand();   
+
+        string sConn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=[filename];Integrated Security=True;Connect Timeout=30";
+
+        private void mnuDBOpen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult ret = openFileDialog1.ShowDialog();
+                if (ret != DialogResult.OK) return;
+                string nFile = openFileDialog1.FileName; //full name
+                string NFile = openFileDialog1.SafeFileName;
+
+                
+                sqlCmd.Connection = sqlCon;
+                //            sqlCon.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\KOSTA\source\repos\DBManager\testDB.mdf;Integrated Security=True;Connect Timeout=30";
+                sqlCon.ConnectionString = sConn.Replace("[filename]", nFile);
+
+                sqlCon.Open();
+                sb1.Text = NFile + " Open success";
+                sb1.BackColor = Color.Green;
+            }
+            catch (SqlException e1)
+            {
+                MessageBox.Show(e1.Message);
+                sb1.Text = "Database Cannot Open";
+                sb1.BackColor = Color.Red;
+            }
+            
+        }
+
+        
+        int RunSql(string sql)
+        {
+            try
+            {
+                sqlCmd.CommandText = sql; 
+                sqlCmd.ExecuteNonQuery(); // select문 제외 -- no return value -- update, insert, delete, create, alt
+            }
+            catch(SqlException e1)
+            {
+                MessageBox.Show(e1.Message);
+            }
+            return 0;
+                        
+        }
+
+        private void mnuExecSql_Click(object sender, EventArgs e)
+        {
+            
+            RunSql(textBox1.Text);
+           //sqlCmd.ExecuteReader(); //select
+
+        }
+
+        private void mnuExecSelectSql_Click(object sender, EventArgs e)
+        {
+           RunSql(textBox1.SelectedText);
+        }
+
+```
