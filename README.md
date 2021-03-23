@@ -259,4 +259,15 @@ static으로 선언된 메소드는 클래스에 소속된? 그런거라서
 그림판마냥 그릴 수 있게 만듬
 
 
+### 2021-03-23
+
+C#으로 DB다루기
+
+1. File Select
+2. Open and Read
+3. Grid header generate
+4. Record append
+5. Input to Cell
+
+파일명: DBManager ;; 폼의 텍스트박스에 sql문 작성하면 DB에 적용됨
 
