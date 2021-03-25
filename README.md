@@ -346,4 +346,28 @@ textbox로 sql문 작성하면 작동하도록,
 + girdview 데이터를 수정하면 update 되도록,
 + gridview 의 테이블을 새 테이블로 저장하도록
 
+update 메소드
+```
+       private void mnuUpdate_Click(object sender, EventArgs e)
+        {
+            for(int i=0; i<dataGrid.Rows.Count; i++)
+            {
+                for (int j = 0; j < dataGrid.Columns.Count; j++)
+                {
+                    string s = dataGrid.Rows[i].Cells[j].ToolTipText;
+// update [Table] set [field]=[CellText] where [1st_Col Name]=[ist_Col.CellText]
+                    if (s == ".")
+                    {
+                        string tn = TableName;
+                        string fn = dataGrid.Columns[j].HeaderText;
+                        object ct = dataGrid.Rows[i].Cells[j].Value;
+                        string kn = dataGrid.Columns[0].HeaderText;
+                        object kt = dataGrid.Rows[i].Cells[0].Value;
+                        string sql = $"update {tn} set {fn}={ct} where {kn}={kt}";
+                        RunSql(sql);
+                    }
+                }            
+            }
+        }
+```
 
