@@ -31,24 +31,33 @@ namespace DBManager
         {
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.sb1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.sbButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.sb2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuMigration = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSaveas = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDBOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.종료ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.excuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuExecSql = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuExecSelectSql = new System.Windows.Forms.ToolStripMenuItem();
+            this.Column = new System.Windows.Forms.ToolStripMenuItem();
+            this.Row = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGrid = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.excuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuExecSql = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuExecSelectSql = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuKeyEnter = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDBClose = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
@@ -61,7 +70,9 @@ namespace DBManager
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sb1});
+            this.sb1,
+            this.sbButton1,
+            this.sb2});
             this.statusStrip1.Location = new System.Drawing.Point(0, 402);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(658, 22);
@@ -73,6 +84,21 @@ namespace DBManager
             this.sb1.Name = "sb1";
             this.sb1.Size = new System.Drawing.Size(62, 17);
             this.sb1.Text = "File Status";
+            // 
+            // sbButton1
+            // 
+            this.sbButton1.BackColor = System.Drawing.SystemColors.Info;
+            this.sbButton1.DoubleClickEnabled = true;
+            this.sbButton1.Name = "sbButton1";
+            this.sbButton1.Size = new System.Drawing.Size(83, 20);
+            this.sbButton1.Text = "TableName";
+            this.sbButton1.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.sbButton1_DropDownItemClicked);
+            // 
+            // sb2
+            // 
+            this.sb2.Name = "sb2";
+            this.sb2.Size = new System.Drawing.Size(53, 17);
+            this.sb2.Text = "Message";
             // 
             // menuStrip1
             // 
@@ -94,8 +120,10 @@ namespace DBManager
             this.newToolStripMenuItem,
             this.toolStripSeparator1,
             this.mnuMigration,
-            this.saveAsToolStripMenuItem,
+            this.mnuSaveas,
             this.mnuDBOpen,
+            this.mnuDBClose,
+            this.mnuUpdate,
             this.종료ToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -120,12 +148,12 @@ namespace DBManager
             this.mnuMigration.Text = "Migration";
             this.mnuMigration.Click += new System.EventHandler(this.mnuMigration_Click);
             // 
-            // saveAsToolStripMenuItem
+            // mnuSaveas
             // 
-            this.saveAsToolStripMenuItem.Enabled = false;
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.saveAsToolStripMenuItem.Text = "Save as...";
+            this.mnuSaveas.Name = "mnuSaveas";
+            this.mnuSaveas.Size = new System.Drawing.Size(180, 22);
+            this.mnuSaveas.Text = "Save as...";
+            this.mnuSaveas.Click += new System.EventHandler(this.mnuSaveas_Click);
             // 
             // mnuDBOpen
             // 
@@ -133,6 +161,13 @@ namespace DBManager
             this.mnuDBOpen.Size = new System.Drawing.Size(180, 22);
             this.mnuDBOpen.Text = "Database 열기";
             this.mnuDBOpen.Click += new System.EventHandler(this.mnuDBOpen_Click);
+            // 
+            // mnuUpdate
+            // 
+            this.mnuUpdate.Name = "mnuUpdate";
+            this.mnuUpdate.Size = new System.Drawing.Size(180, 22);
+            this.mnuUpdate.Text = "DB update";
+            this.mnuUpdate.Click += new System.EventHandler(this.mnuUpdate_Click);
             // 
             // 종료ToolStripMenuItem
             // 
@@ -153,6 +188,50 @@ namespace DBManager
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.viewToolStripMenuItem.Text = "View";
             // 
+            // excuteToolStripMenuItem
+            // 
+            this.excuteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuExecSql,
+            this.mnuExecSelectSql,
+            this.toolStripSeparator2,
+            this.Column,
+            this.Row,
+            this.toolStripSeparator3,
+            this.mnuKeyEnter});
+            this.excuteToolStripMenuItem.Name = "excuteToolStripMenuItem";
+            this.excuteToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.excuteToolStripMenuItem.Text = "Execute";
+            // 
+            // mnuExecSql
+            // 
+            this.mnuExecSql.Name = "mnuExecSql";
+            this.mnuExecSql.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.mnuExecSql.Size = new System.Drawing.Size(247, 22);
+            this.mnuExecSql.Text = "Execute Sql";
+            this.mnuExecSql.Click += new System.EventHandler(this.mnuExecSql_Click);
+            // 
+            // mnuExecSelectSql
+            // 
+            this.mnuExecSelectSql.Name = "mnuExecSelectSql";
+            this.mnuExecSelectSql.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F5)));
+            this.mnuExecSelectSql.Size = new System.Drawing.Size(247, 22);
+            this.mnuExecSelectSql.Text = "Execute Selected Sql...";
+            this.mnuExecSelectSql.Click += new System.EventHandler(this.mnuExecSelectSql_Click);
+            // 
+            // Column
+            // 
+            this.Column.Name = "Column";
+            this.Column.Size = new System.Drawing.Size(247, 22);
+            this.Column.Text = "Column";
+            this.Column.Click += new System.EventHandler(this.Column_Click);
+            // 
+            // Row
+            // 
+            this.Row.Name = "Row";
+            this.Row.Size = new System.Drawing.Size(247, 22);
+            this.Row.Text = "Row";
+            this.Row.Click += new System.EventHandler(this.Row_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
@@ -170,6 +249,7 @@ namespace DBManager
             this.dataGrid.RowTemplate.Height = 23;
             this.dataGrid.Size = new System.Drawing.Size(634, 228);
             this.dataGrid.TabIndex = 2;
+            this.dataGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGrid_CellBeginEdit);
             // 
             // textBox1
             // 
@@ -181,6 +261,7 @@ namespace DBManager
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(633, 134);
             this.textBox1.TabIndex = 3;
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // openFileDialog1
             // 
@@ -207,28 +288,31 @@ namespace DBManager
             this.splitContainer1.SplitterDistance = 137;
             this.splitContainer1.TabIndex = 4;
             // 
-            // excuteToolStripMenuItem
+            // toolStripSeparator2
             // 
-            this.excuteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuExecSql,
-            this.mnuExecSelectSql});
-            this.excuteToolStripMenuItem.Name = "excuteToolStripMenuItem";
-            this.excuteToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
-            this.excuteToolStripMenuItem.Text = "Execute";
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(244, 6);
             // 
-            // mnuExecSql
+            // toolStripSeparator3
             // 
-            this.mnuExecSql.Name = "mnuExecSql";
-            this.mnuExecSql.Size = new System.Drawing.Size(194, 22);
-            this.mnuExecSql.Text = "Execute Sql";
-            this.mnuExecSql.Click += new System.EventHandler(this.mnuExecSql_Click);
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(244, 6);
             // 
-            // mnuExecSelectSql
+            // mnuKeyEnter
             // 
-            this.mnuExecSelectSql.Name = "mnuExecSelectSql";
-            this.mnuExecSelectSql.Size = new System.Drawing.Size(194, 22);
-            this.mnuExecSelectSql.Text = "Execute Selected Sql...";
-            this.mnuExecSelectSql.Click += new System.EventHandler(this.mnuExecSelectSql_Click);
+            this.mnuKeyEnter.Checked = true;
+            this.mnuKeyEnter.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mnuKeyEnter.Name = "mnuKeyEnter";
+            this.mnuKeyEnter.Size = new System.Drawing.Size(247, 22);
+            this.mnuKeyEnter.Text = "Excute for [Enter]";
+            this.mnuKeyEnter.Click += new System.EventHandler(this.mnuKeyEnter_Click);
+            // 
+            // mnuDBClose
+            // 
+            this.mnuDBClose.Name = "mnuDBClose";
+            this.mnuDBClose.Size = new System.Drawing.Size(180, 22);
+            this.mnuDBClose.Text = "Database 닫기";
+            this.mnuDBClose.Click += new System.EventHandler(this.mnuDBClose_Click);
             // 
             // Form1
             // 
@@ -270,7 +354,7 @@ namespace DBManager
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuSaveas;
         private System.Windows.Forms.ToolStripMenuItem mnuDBOpen;
         private System.Windows.Forms.ToolStripMenuItem 종료ToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel sb1;
@@ -278,6 +362,15 @@ namespace DBManager
         private System.Windows.Forms.ToolStripMenuItem excuteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuExecSql;
         private System.Windows.Forms.ToolStripMenuItem mnuExecSelectSql;
+        private System.Windows.Forms.ToolStripStatusLabel sb2;
+        private System.Windows.Forms.ToolStripMenuItem mnuUpdate;
+        private System.Windows.Forms.ToolStripSplitButton sbButton1;
+        private System.Windows.Forms.ToolStripMenuItem Column;
+        private System.Windows.Forms.ToolStripMenuItem Row;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem mnuKeyEnter;
+        private System.Windows.Forms.ToolStripMenuItem mnuDBClose;
     }
 }
 

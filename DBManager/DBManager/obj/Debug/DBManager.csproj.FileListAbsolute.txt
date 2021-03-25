@@ -8,3 +8,4 @@ C:\Users\KOSTA\source\repos\DBManager\DBManager\obj\Debug\DBManager.csproj.Gener
 C:\Users\KOSTA\source\repos\DBManager\DBManager\obj\Debug\DBManager.csproj.CoreCompileInputs.cache
 C:\Users\KOSTA\source\repos\DBManager\DBManager\obj\Debug\DBManager.exe
 C:\Users\KOSTA\source\repos\DBManager\DBManager\obj\Debug\DBManager.pdb
+C:\Users\KOSTA\source\repos\DBManager\DBManager\obj\Debug\DBManager.ColName.resources

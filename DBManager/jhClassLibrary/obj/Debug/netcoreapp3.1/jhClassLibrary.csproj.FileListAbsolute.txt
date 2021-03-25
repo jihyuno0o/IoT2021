@@ -1,0 +1,9 @@
+C:\Users\KOSTA\source\repos\DBManager\jhClassLibrary\bin\Debug\netcoreapp3.1\jhClassLibrary.deps.json
+C:\Users\KOSTA\source\repos\DBManager\jhClassLibrary\bin\Debug\netcoreapp3.1\jhClassLibrary.dll
+C:\Users\KOSTA\source\repos\DBManager\jhClassLibrary\bin\Debug\netcoreapp3.1\jhClassLibrary.pdb
+C:\Users\KOSTA\source\repos\DBManager\jhClassLibrary\obj\Debug\netcoreapp3.1\jhClassLibrary.csprojAssemblyReference.cache
+C:\Users\KOSTA\source\repos\DBManager\jhClassLibrary\obj\Debug\netcoreapp3.1\jhClassLibrary.AssemblyInfoInputs.cache
+C:\Users\KOSTA\source\repos\DBManager\jhClassLibrary\obj\Debug\netcoreapp3.1\jhClassLibrary.AssemblyInfo.cs
+C:\Users\KOSTA\source\repos\DBManager\jhClassLibrary\obj\Debug\netcoreapp3.1\jhClassLibrary.csproj.CoreCompileInputs.cache
+C:\Users\KOSTA\source\repos\DBManager\jhClassLibrary\obj\Debug\netcoreapp3.1\jhClassLibrary.dll
+C:\Users\KOSTA\source\repos\DBManager\jhClassLibrary\obj\Debug\netcoreapp3.1\jhClassLibrary.pdb
