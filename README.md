@@ -382,4 +382,238 @@ update 메소드
 3. 개요 : 프로젝트(프로그램) 설명 - 기능 - 효과
 4. 일정, 개발자, 참고자료
 
+### 2021-04-12
 
+클라이언트 폼
+```
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml;
+using static myLib.LibSor;
+
+namespace ChartManager
+{
+    public partial class FrmClient : Form
+    {
+        public FrmClient()
+        {
+            InitializeComponent();
+        }
+
+        delegate void cbAddText(string s);
+        void AddText(string str)
+        {
+            if(tbReceive.InvokeRequired)
+            {
+                cbAddText cb = new cbAddText(AddText);
+                object[] oArr = { str };
+                Invoke(cb, oArr);  //Invoke(cb, new object[] {str});
+            }
+            tbReceive.AppendText(str); //byte[]의 size만큼 변환 (null 포함)
+        }
+
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            int size1 = 200; //splitContainer1.Panal2 의 사이즈 ->고정 원츄
+
+            splitContainer1.SplitterDistance = splitContainer1.Size.Width - size1;
+        }
+
+        Thread threadClient = null;
+        Socket sock = null;
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+          
+           if(sock==null)
+            {
+                sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            }
+            
+            sock.Connect(tbIP.Text, int.Parse(tbPort.Text));
+            sbLabel1.Text=((IPEndPoint)(sock.RemoteEndPoint)).Address.ToString(); //12.0.0.1:12345
+            sbLabel2.Text = ((IPEndPoint)(sock.RemoteEndPoint)).Port.ToString(); 
+
+            if(threadClient==null)
+            {
+                threadClient = new Thread(ClientProcess);
+                threadClient.Start();
+            }
+
+        }
+
+        void ClientProcess() //Thread 등록 프로세스
+        {
+            while(true)
+            {
+                int n = sock.Available;
+                if(n>0)
+                {
+                    byte[] bArr = new byte[n]; //c#에서의 통신은 byte[] ;c/c++ char
+                    sock.Receive(bArr);
+                    AddText(Encoding.Default.GetString(bArr));
+                }
+            } 
+        }
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            if(sock.Connected)
+            {
+                string str = tbSend.Text.Trim();
+                string[] sArr = str.Split('\r'); //multiline \r\n
+                string sLast = sArr[sArr.Length - 1];
+            
+                sock.Send(Encoding.Default.GetBytes(sLast));
+            }
+           
+        }
+
+        iniFile ini = new iniFile(".\\ChatClient.ini");
+        private void FrmClient_Load(object sender, EventArgs e)
+        {
+            int x1, x2, y1, y2;
+            tbIP.Text = ini.GetString("Server", "IP","127.0.0.1");
+            tbPort.Text = ini.GetString("Server", "Port", "9001");
+            x1 = int.Parse(ini.GetString("Form", "LocationX", "0"));
+            y1 = int.Parse(ini.GetString("Form", "LocationY", "0"));
+            this.Location = new Point(x1, y1);
+            x2 = int.Parse(ini.GetString("Form", "SizeX", "500"));
+            y2 = int.Parse(ini.GetString("Form", "SizeY", "500"));
+            this.Size = new Size(x2, y2);
+
+        }
+
+        private void FrmClient_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ini.SetString("Server", "IP", tbIP.Text);
+            ini.SetString("Server", "Port", tbPort.Text);
+            ini.SetString("Form", "LocationX", $"{Location.X}");
+            ini.SetString("Form", "LocationY", $"{Location.Y}");
+            ini.SetString("Form", "SizeX", $"{Size.Width}");
+            ini.SetString("Form", "SizeY", $"{Size.Height}");
+        }
+    }
+}
+```
+
+![image](https://user-images.githubusercontent.com/79901413/114365265-47bebb00-9bb5-11eb-8588-6ba09fcd30ac.png)
+
+
+서버 폼
+```
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace ChatServer
+{
+    public partial class FrmServer : Form
+    {
+        public FrmServer()
+        {
+            InitializeComponent();
+        }
+
+        delegate void CB();
+        void AddText()
+        {
+            if(tbReceive.InvokeRequired)
+            {
+                CB cb = new CB(AddText);
+                Invoke(cb);
+            }
+            else
+            {
+                tbReceive.AppendText(TmpString);
+            }
+            
+        }
+
+        string TmpString = "";
+        Thread threadServer = null;
+        Thread threadRead = null;
+        TcpListener listener = null;
+        TcpClient tcp = null;
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            if(listener ==null)
+            {
+                listener = new TcpListener(int.Parse(tbSerPort.Text));
+                listener.Start();
+            }
+            if(threadServer==null)
+            {
+                threadServer = new Thread(ServerProcess);
+                threadServer.Start();
+                threadRead = new Thread(ReadProcess);
+            }
+        }
+
+        void ServerProcess()
+        {
+            while(true)
+            {
+                if(listener.Pending() == true) //접속 요청이 있는 경우...
+                {
+                    tcp = listener.AcceptTcpClient(); //블로킹 모드
+                    threadRead.Start();
+                }
+                Thread.Sleep(100);
+            }
+            
+        }
+
+        void ReadProcess()
+        {
+            if(tcp != null)
+            {
+                NetworkStream ns = tcp.GetStream();
+                byte[] bArr = new byte[50];
+                while (true)
+                {
+                    while (ns.DataAvailable)
+                    {
+                        int n = ns.Read(bArr, 0, 50);
+                        TmpString = Encoding.Default.GetString(bArr, 0, n);
+                        AddText();
+                    }
+                }
+            }
+        }
+
+        private void FrmServer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(threadServer != null)
+                threadServer.Abort();
+            if (threadRead != null)
+                threadRead.Abort();
+        }
+    }
+}
+```
+
+![image](https://user-images.githubusercontent.com/79901413/114365303-54dbaa00-9bb5-11eb-81a2-c1b85be7d99f.png)
+
+
+서버에서 스타트버튼 누르면 오류가 뜨는데, 
+![image](https://user-images.githubusercontent.com/79901413/114365369-6329c600-9bb5-11eb-937a-7bdcaca64bb3.png)
+이유를 모르겠넹,,,,
